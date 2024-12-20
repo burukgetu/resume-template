@@ -191,9 +191,6 @@ Font.register({
       lineHeight: 1.2,
       letterSpacing: 0.1
     },
-    reference: {
-      marginLeft: -38
-    },
     languages: {
       paddingTop: 15,
       display: "flex",
@@ -274,8 +271,8 @@ Font.register({
           {/* Header Section */}
           <View style={styles.headerSection}>
               <View style={styles.personalInfo}>          
-                <Text style={styles.name}>{`${(data.PersonalInfo?.Name)?.toLocaleUpperCase()}`}</Text>
-                <Text style={styles.role}>{`${(data.Introduction?.Title)?.toLocaleUpperCase()}`}</Text>
+                <Text style={styles.name}>{`${(data.PersonalInfo?.Name)?.toLocaleUpperCase() || ""}`}</Text>
+                <Text style={styles.role}>{`${(data.Introduction?.Title)?.toLocaleUpperCase() || ""}`}</Text>
               </View>
               <View style={styles.contactInfo}> 
                 {data.PersonalInfo?.Phone && (
@@ -298,91 +295,103 @@ Font.register({
                 )}
               </View>
           </View>
-  
-          {/* Border */}
-          <View style={styles.border}></View>
-  
+
           {/* About me section */}
           {data.Introduction?.About && (
-            <View style={styles.section}>
-              <Text style={styles.title}>About Me</Text>
-              <Text style={styles.text}>{data.Introduction.About}</Text>
-            </View>
+            <>
+              {/* Border */}
+              <View style={styles.border}></View>
+              <View style={styles.section}>
+                <Text style={styles.title}>About Me</Text>
+                <Text style={styles.text}>{data.Introduction.About}</Text>
+              </View>
+            </>
           )}
   
-          {/* Border */}
-          <View style={styles.border}></View>
-  
           {/* Experience Section */}
-          {renderSection("Experience", data.Experience, (exp, index) => (
-            <View key={index} style={styles.sectionItem}>
-                <Text style={styles.companyName}>{exp.Company}  {exp.StartDate} - {exp.EndDate}</Text>
-                <Text style={styles.companyPosition}>{exp.Title}</Text>
-                <Text style={styles.text}>{exp.Description}</Text>
-            </View>
-          ))}
-  
-          {/* Border */}
-          <View style={styles.border}></View>
+          {data.Experience && (
+            <>
+              {/* Border */}
+              <View style={styles.border}></View>
+              {renderSection("Experience", data.Experience, (exp, index) => (
+                <View key={index} style={styles.sectionItem}>
+                    <Text style={styles.companyName}>{exp.Company}  {exp.StartDate} - {exp.EndDate}</Text>
+                    <Text style={styles.companyPosition}>{exp.Title}</Text>
+                    <Text style={styles.text}>{exp.Description}</Text>
+                </View>
+              ))}
+            </>
+          )}
   
           {/* Education Section */}
-          {renderSection("Education", data.Education, (edu, index) => (
-            <View key={index} style={styles.educationItem}>
-              <View style={styles.experienceHeader}>
-                <Text style={styles.companyName}>{edu.GraduationDate}</Text>
-                <Text style={styles.school}>{edu.School}</Text>
-              
-                <Text style={styles.degree}>{edu.Degree} in {edu.FieldOfStudy}</Text>
-              </View>
-              <View>
-                <Text style={styles.description}>{edu.Description}</Text>
-              </View>
-            </View>
-          ))}
+          {data.Education && (
+            <>
+              {/* Border */}
+              <View style={styles.border}></View>
+
+              {renderSection("Education", data.Education, (edu, index) => (
+                <View key={index} style={styles.educationItem}>
+                  <View style={styles.experienceHeader}>
+                    <Text style={styles.companyName}>{edu.GraduationDate}</Text>
+                    <Text style={styles.school}>{edu.School}</Text>
+                  
+                    <Text style={styles.degree}>{edu.Degree} in {edu.FieldOfStudy}</Text>
+                  </View>
+                  <View>
+                    <Text style={styles.description}>{edu.Description}</Text>
+                  </View>
+                </View>
+              ))}
+            </>
+          )}
   
-          {/* Border */}
-          <View style={styles.border}></View>
-  
-          <View style={styles.footer}>
-              {data.OptionalStringSection?.Languages && (
-                <View>
-                    <Text style={styles.title}>Language</Text>
-                    <View style={styles.languages}>
-                      {data.OptionalStringSection?.Languages.map((lang, index) => (
-                        <View style={styles.languageItem}>
-                          <Text key={index} style={styles.footerText}>{lang}</Text>
-                          <View style={styles.progressBarBackground}>
-                            <View style={{ ...styles.progressBarFilling, width: "70%" }} />
-                          </View>
+          {/* Footer with language, expertise and reference */}
+          {(data.OptionalStringSection?.Languages || data.OptionalStringSection?.Interests || data.OptionalStringSection?.References) && (
+            <>
+              {/* Border */}
+              <View style={styles.border}></View>
+              <View style={styles.footer}>
+                  {data.OptionalStringSection?.Languages && (
+                    <View>
+                        <Text style={styles.title}>Language</Text>
+                        <View style={styles.languages}>
+                          {data.OptionalStringSection?.Languages.map((lang, index) => (
+                            <View style={styles.languageItem}>
+                              <Text key={index} style={styles.footerText}>{lang}</Text>
+                              <View style={styles.progressBarBackground}>
+                                <View style={{ ...styles.progressBarFilling, width: "70%" }} />
+                              </View>
+                            </View>
+                          ))}
                         </View>
-                      ))}
                     </View>
-                </View>
-              )}
-              {data.OptionalStringSection?.Interests && (
-                <View>
-                    <Text style={styles.title}>Expertise</Text>
-                    <View style={styles.expertices}>
-                      {data.OptionalStringSection?.Interests.map((interests, index) => (
-                        <View style={styles.expertiseItem}>
-                          <Text style={styles.dot}>•</Text>
-                          <Text key={index} style={styles.expertiseText}>{interests}</Text>
+                  )}
+                  {data.OptionalStringSection?.Interests && (
+                    <View>
+                        <Text style={styles.title}>Expertise</Text>
+                        <View style={styles.expertices}>
+                          {data.OptionalStringSection?.Interests.map((interests, index) => (
+                            <View style={styles.expertiseItem}>
+                              <Text style={styles.dot}>•</Text>
+                              <Text key={index} style={styles.expertiseText}>{interests}</Text>
+                            </View>
+                          ))}
                         </View>
-                      ))}
                     </View>
-                </View>
-              )}
-              {data.OptionalStringSection?.References && (
-                <View style={styles.reference}>
-                    <Text style={styles.title}>Reference</Text>
-                    <View style={styles.languages}>
-                      {data.OptionalStringSection?.References.map((refs, index) => (
-                        <Text key={index} style={styles.refText}>{refs}</Text>
-                      ))}
+                  )}
+                  {data.OptionalStringSection?.References && (
+                    <View>
+                        <Text style={styles.title}>Reference</Text>
+                        <View style={styles.languages}>
+                          {data.OptionalStringSection?.References.map((refs, index) => (
+                            <Text key={index} style={styles.refText}>{refs}</Text>
+                          ))}
+                        </View>
                     </View>
-                </View>
-              )}
-          </View>
+                  )}
+              </View>
+            </>
+          )}
         </Page>
       </Document>)
     }
