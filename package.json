@@ -1,0 +1,20 @@
+{
+  "name": "resume-template",
+  "version": "1.0.0",
+  "main": "generate.tsx",
+  "type": "module",
+  "scripts": {
+    "test": "node generate.tsx"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@esbuild-kit/esm-loader": "^2.6.5",
+    "@react-pdf/renderer": "^4.1.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}

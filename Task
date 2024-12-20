@@ -1,0 +1,35 @@
+### Create a new template file that follows the template.tsx structure, with different designed depends on the given sample
+
+
+Goal: 
+- I will give you the PDF sample of the resume that needs to be created with given defaultData in the resumeData.ts
+- we need the template code to generate it, similar to the template.tsx
+-  The style and structure of the <Page> in the new template code will be different to match with the sample PDF
+
+- Getting started: 
++ Download the code generate.tsx, resumeData.ts, template.tsx 
++ create a new repo with it , init with npm init, 
++ npm install @react-pdf/renderer , learn this npm 
++ To generate the pdf, run generate.tsx  to generate the PDF resume based on the template.tsx
+
+- Create a new template: 
++ You will be given a PDF file of the resume you need to create the template code for
++ Create a new file newTemplate.tsx that's similar to template.tsx 
++ Change CSS and structure of <Page> component to reflect the sample PDF you receive
++ Update import in generate.tsx to import newTemplate 
++ Run generate.tsx , it will write a new PDF file 
++ Check the PDF generated to see if it matches with the sample PDF you are given
+
+
+Note: 
+- fonts : fonts used in the template.tsx : https://github.com/MohitR1999/ats-friendly-resume/tree/master/res/fonts 
+ -- Download the fonts folder and import accordingly
+- If new fonts are needed, find new fonts with .ttf file extension, you can checkout google fonts
+
+
+- Requirement: 
+++ the result has to render all of the data in the defaultResumeData , with all the data being optional, 
+++ The code doesn't break with missing data 
+++ The PDF generated match the sample PDF file
+++ Clean code
+
